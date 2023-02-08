@@ -42,17 +42,31 @@ const addMovie = evt => {
 const deleteMovie = evt => {
     //targets the parent of the button to remove the entire li element
     evt.target.parentNode.remove();
-    message.textContent = "Bye Bye Shitty Movie";
+    message.textContent = `${evt.target.parentNode.firstChild.textContent} Removed from List!`;
+    //calls the reveal Message function
+    revealMessage();
 }
 
 const crossOffMovie = evt => {
     //looks at the button that was clicked and toggles the checked class on or off
     evt.target.classList.toggle('checked');
     if (evt.target.classList.contains('checked')) {
-        message.textContent = "This movie was Dope!";
+        message.textContent = `${evt.target.textContent} Watched!`;
     } else {
-        message.textContent = "whooooooops..."
+        message.textContent = `${evt.target.textContent} hasn't been watched`
     }
+    //calls teh revealMessage function
+    revealMessage();
+}
+
+const revealMessage = evt => {
+    //if hide has been applied, it removes it before setting the timer
+    message.classList.remove('hide');
+    //setTimeout puts a delay on the callback function inside.
+    //this callback function just adds the hide class to the message element
+    setTimeout(() => {
+        message.classList.add('hide')
+    }, 1000)
 }
 
 //listens for the submit button to be clicked to invoke the addMovie function
